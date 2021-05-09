@@ -18,7 +18,11 @@ var pinCodes = []string{
 }
 
 var districtIds = []string{
-	"1111", // dummy id
+	"150", // South West Delhi
+	"142", // West Delhi
+	"149", // South Delhi
+	"141", // Central Delhi
+	"140", // New Delhi
 }
 
 func main() {
