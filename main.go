@@ -5,7 +5,7 @@ import (
 )
 
 const Age = 18
-const DistrictBasedSearch = false
+const DistrictBasedSearch = true
 
 // Choose either pin code based search or district
 // Due to rate limiter on api add only up to 5 pins/district ids

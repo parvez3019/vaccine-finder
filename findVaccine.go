@@ -53,7 +53,7 @@ func notify(availability *Availability, id string, date string) {
 
 func getDates() [20]string {
 	currentTime := time.Now()
-	currentTime = currentTime.AddDate(0, 0, 2)
+	currentTime = currentTime.AddDate(0, 0, 1)
 	//10-05-2021
 	dates := [20]string{}
 	for i := 0; i < 20; i++ {
