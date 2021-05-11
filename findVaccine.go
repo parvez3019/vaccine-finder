@@ -66,7 +66,7 @@ func getDates() [20]string {
 func fetchVaccineRequest(id string, date string) *Availability {
 	url := fmt.Sprintf("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=%s&date=%s", id, date)
 	if DistrictBasedSearch {
-		url = fmt.Sprintf("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?district_id=%s&date=%s", id, date)
+		url = fmt.Sprintf("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=%s&date=%s", id, date)
 	}
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("accept", "application/json")
