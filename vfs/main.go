@@ -7,7 +7,8 @@ import (
 	"time"
 )
 
-var authHeader = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSW5kaXZpZHVhbCIsInVzZXJJZCI6InRvVUNwUzlYcGo1dVlZUFlOb0tOMEE9PSIsImVtYWlsIjoiZDJnRGEzaFArZitSaDlVRTNQdW8yR2xtWEtZTkVySkZ0aXJBbGZXSkw4WVZyODZnSWhMRU55TDNQSFZodnFudCIsIm5iZiI6MTYzMzM0Njk4NywiZXhwIjoxNjMzMzUyOTg3LCJpYXQiOjE2MzMzNDY5ODd9.ZAPchV-2OdfyBtXFvZZ_dVNIdaCSaXrjUEFGZAETNzo"
+var authHeader = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSW5kaXZpZHVhbCIsInVzZXJJZCI6InRvVUNwUzlYcGo1dVlZUFlOb0tOMEE9PSIsImVtYWlsIjoiZDJnRGEzaFArZitSaDlVRTNQdW8yR2xtWEtZTkVySkZ0aXJBbGZXSkw4WVZyODZnSWhMRU55TDNQSFZodnFudCIsIm5iZiI6MTYzNDEyOTIzOCwiZXhwIjoxNjM0MTM1MjM4LCJpYXQiOjE2MzQxMjkyMzh9.B-3mEZM6yaeME5wbG2zwjlBFS4vPtc_BCNBfnpyYOK0"
+var path = "/appointment/slots?countryCode=ind&missionCode=deu&centerCode=DEL&loginUser=pha3019%40gmail.com&visaCategoryCode=Blue%20Card%20with%20dependents&languageCode=en-US&applicantsCount=1&days=90&fromDate=14%2F10%2F2021&slotType=2&toDate=12%2F01%2F2022"
 
 func main() {
 	for {
@@ -22,7 +23,8 @@ func findSlot() {
 		return
 	}
 	if resp.StatusCode != 200 {
-		notify("Login Required", "Re-login", "Update auth header")
+		notify("Login Required", "Re-login")
+		return
 	}
 
 	defer resp.Body.Close()
@@ -31,29 +33,30 @@ func findSlot() {
 	err = decoder.Decode(&response)
 	if err != nil {
 		fmt.Println("Error decoding response ", err.Error())
+		return
 	}
 	if len(response) > 1 {
 		fmt.Printf("Slot Found %+v \n", response)
-		notify("Slot Found", "Hurry up", response[0].Date.(string))
+		notify("Slot Found", "Hurry up")
 	} else if response[0].Error == nil {
 		fmt.Printf("Slot Found %+v \n", response)
-		notify("Slot Found", "Hurry up", response[0].Date.(string))
+		notify("Slot Found", "Hurry up")
 	} else {
 		fmt.Printf("No slots %+v \n", response[0].Error)
 	}
 }
 
-func notify(title, subtitle, message string) {
+func notify(title, subtitle string) {
 	cmd := Notification{
 		Title:    title,
 		Subtitle: subtitle,
-		Message:  message,
+		Message:  "",
 	}
 	cmd.Push()
 }
 
 func fetchResponse() (*http.Response, error) {
-	url := "https://lift-api.vfsglobal.com/appointment/slots?countryCode=ind&missionCode=deu&centerCode=DEL&loginUser=pha3019%40gmail.com&visaCategoryCode=Blue%20Card%20with%20dependents&languageCode=en-US&applicantsCount=1&days=90&fromDate=05%2F10%2F2021&slotType=2&toDate=03%2F01%2F2022"
+	url := "https://lift-api.vfsglobal.com" + path
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("accept", "application/json")
 	req.Header.Set("Accept-Language", "hi_IN")
