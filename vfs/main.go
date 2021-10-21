@@ -40,6 +40,7 @@ func findSlot() {
 	if len(response) > 1 {
 		fmt.Printf("Slot Found %+v \n", response)
 		notify("Slot Found", "Hurry up")
+		call()
 	} else if response[0].Error == nil && response[0].Date != nil {
 		fmt.Printf("Slot Found %+v \n", response)
 		notify("Slot Found", "Hurry up")
