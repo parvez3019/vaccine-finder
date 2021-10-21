@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-var authHeader = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSW5kaXZpZHVhbCIsInVzZXJJZCI6InRvVUNwUzlYcGo1dVlZUFlOb0tOMEE9PSIsImVtYWlsIjoiZDJnRGEzaFArZitSaDlVRTNQdW8yR2xtWEtZTkVySkZ0aXJBbGZXSkw4WVZyODZnSWhMRU55TDNQSFZodnFudCIsIm5iZiI6MTYzNDI5NzkxMywiZXhwIjoxNjM0MzAzOTEzLCJpYXQiOjE2MzQyOTc5MTN9.GmGyv7dNs8GkVqvPHg4huyZp-2tLX7qY9ICNB0TJst8"
+var authHeader = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSW5kaXZpZHVhbCIsInVzZXJJZCI6InRvVUNwUzlYcGo1dVlZUFlOb0tOMEE9PSIsImVtYWlsIjoiZDJnRGEzaFArZitSaDlVRTNQdW8yR2xtWEtZTkVySkZ0aXJBbGZXSkw4WVZyODZnSWhMRU55TDNQSFZodnFudCIsIm5iZiI6MTYzNDgyNTgxNCwiZXhwIjoxNjM0ODMxODE0LCJpYXQiOjE2MzQ4MjU4MTR9.PGmkXwM32abXGrLO3NkvaYNRS4l2wf5K92maMO9PtFU"
 var path = "/appointment/slots?countryCode=ind&missionCode=deu&centerCode=DEL&loginUser=pha3019%40gmail.com&visaCategoryCode=Blue%20Card%20with%20dependents&languageCode=en-US&applicantsCount=1&days=90&fromDate=22%2F10%2F2021&slotType=2&toDate=20%2F01%2F2022"
 
 func main() {
@@ -47,6 +47,7 @@ func findSlot() {
 		call()
 	} else if response[0].Error == nil {
 		notify("Update API token/date", "Hurry up")
+		fmt.Println(response)
 	} else {
 		fmt.Printf("No slots %+v \n", response[0].Error)
 	}
